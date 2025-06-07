@@ -8,6 +8,13 @@
       "when": 1749293590253,
       "tag": "0000_productive_warbird",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1749297228022,
+      "tag": "0001_silly_switch",
+      "breakpoints": true
     }
   ]
 }
