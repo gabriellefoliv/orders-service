@@ -2,7 +2,7 @@ import '@opentelemetry/auto-instrumentations-node/register'
 
 import { fastify } from 'fastify';
 import { randomUUID } from 'node:crypto';
-import {setTimeout} from 'node:timers/promises';
+import { setTimeout } from 'node:timers/promises';
 import { z } from 'zod'
 import { serializerCompiler, validatorCompiler, type ZodTypeProvider } from 'fastify-type-provider-zod'
 import { schema } from '../db/schema/index.ts';
@@ -33,24 +33,21 @@ app.post('/orders', {
 
     const orderId = randomUUID()
 
-    
     await db.insert(schema.orders).values({
         id: randomUUID(),
         customerId: '9d1afddd-5660-4f57-a3f4-fe83d5d97eda',
         amount,
     })
 
-    
     const span = tracer.startSpan('eu acho que aqui ta dando merda')
-    
+
     span.setAttribute('teste', 'hello world')
 
     await setTimeout(2000)
-    
     span.end()
 
     trace.getActiveSpan()?.setAttribute('order_id', orderId)
-    
+
     dispatchOrderCreated({
         orderId,
         amount,
@@ -62,6 +59,6 @@ app.post('/orders', {
     return reply.status(201).send()
 })
 
-app.listen({ host: '0.0.0.0', port: 3333 }).then(() => {
+app.listen({ host: '0.0.0.0', port: 3335 }).then(() => {
     console.log("[Orders] HTTP Server Running")
 })

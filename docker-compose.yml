@@ -34,5 +34,18 @@ services:
       - "8443:8443" # Proxy SSL (HTTPS)
       - "8444:8444" # Admin API HTTPS
 
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: orders
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+
 volumes:
   rabbitmq_data:
+  pg_data:
